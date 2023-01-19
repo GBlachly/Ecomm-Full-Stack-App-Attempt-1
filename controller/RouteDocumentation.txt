@@ -1,0 +1,231 @@
+ROUTES, EXAMPLE REQUEST BODIES, AND EXAMPLE RESPONSES (json)
+
+*** If user is not logged in, then *** routes must add a "userId" in the request body to test routes
+
+
+USERS
+1) Logout User (GET: localhost:4001/users/logout)
+
+2) Get Login Page (GET: localhost:4001/users/login)
+Ex- Response
+    {};
+
+3) Login user (POST: localhost:4001/users/login)
+Ex- Request Body
+    {
+        "username": "testUsername",
+        "password": "testPassword"
+    };
+
+4) Register user (POST: localhost:4001/users/register)
+Ex- Request Body
+    {
+        "username": "testUsername",
+        "password": "testPassword",
+        "email": "testemail@aol.com"
+        /* , "admin": true */
+    };
+
+5) Update Username*** (PUT: localhost:4001/users/username)
+Ex- Request Body
+    {
+        "username": "newUsername"
+    };
+
+6) Update Password*** (PUT: localhost:4001/users/password)
+Ex- Request Body
+    {
+        "password": "newPassword",
+    };
+
+7) Delete User*** (DELETE: localhost:4001/users/delete)
+
+
+
+PRODUCTS
+1) Get All Products (GET: localhost:4001/products/)
+Ex- Response
+    {
+        "products": [
+            {"id": 1, "name": "Item One", "price": 3.99 "stock": 4}, 
+            {"id": 2, "name": "Item Two", "price": 4.99 "stock": 5}, 
+            {"id": 3, "name": "Item Three", "price": 5.99 "stock": 6}, 
+            ...
+        ]
+    };
+
+2) Get Product By Name (GET: localhost:4001/products/name/:productName)
+Ex- Response
+    {
+        "products": [
+            {"id": 1, "name": "Item One", "price": 3.99 "stock": 4}, 
+            {"id": 2, "name": "Item Two", "price": 4.99 "stock": 5}, 
+            {"id": 3, "name": "Item Three", "price": 5.99 "stock": 6}, 
+            ...
+        ]
+    };
+
+3) Get Product By Id (GET: localhost:4001/products/id/:productId)
+Ex- Response
+    {
+        "product": {"id": 1, "name": "Item One", "price": 3.99 "stock": 4} 
+    };
+
+4) Create Product (Admin Only Route) (POST: localhost:4001/products/)
+Ex- Request Body
+    {
+        "name": "Item Name",
+        "price": 19.99,
+        "stock": 10
+    };
+
+5) Update Product (Admin Only Route) (PUT: localhost:4001/products/id/:productId)
+Ex- Request Body
+    {
+        "name": "New Item Name",
+        "price": 29.99,
+        "stock": 11
+    };
+
+6) Delete Product (Admin Only Route) (DELETE: localhost:4001/products/id/:productId)
+
+
+
+CARTS
+1) Get User Cart*** (GET: localhost:4001/carts/)
+Ex- Response
+    {
+        "cartId": 123,
+        "userId": 234,
+        "totalPrice": 199.99,
+        "products": [
+            {"productId": 1, "productName": "Item One", "quantity": 4}, 
+            {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+            {"productId": 3, "productName": "Item Three", "quantity": 6},
+            ...
+        ]
+    };
+
+2) Create Cart*** (POST: localhost:4001/carts/)
+Ex- Request Body
+    {
+        "totalPrice": 314.99, 
+        "products": [
+            {"productId": 1, "productName": "Item One", "quantity": 4}, 
+            {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+            {"productId": 3, "productName": "Item Three", "quantity": 6},
+            ...
+        ]
+    };
+
+3) Add Item To Cart*** (POST: localhost:4001/carts/addItem)
+Ex- Request Body
+    {
+        "productId": 1,
+        "productName": "Item One",
+        "quantity": 4
+    };
+
+4) Delete Item From Cart*** (PUT: localhost:4001/carts/deleteItem)
+Ex- Request Body
+    {
+        "productId": 1
+    };
+
+5) Update Cart Item Quantity*** (PUT: localhost:4001/carts/updateQuantity)
+Ex- Request Body
+    {
+        "productId": 1,
+        "quantity": 5
+    };
+
+6) Delete Cart*** (DELETE: localhost:4001/carts/)
+
+
+
+CHECKOUT
+EDIT 1) Checkout*** (POST: localhost:4001/carts/checkout)
+Ex- Request Body
+    {};
+
+
+
+ORDERS 
+1) Get Orders By User Id*** (GET: localhost:4001/orders/)
+Ex- Response
+    {
+        "userOrders": [
+            {
+                "orderId": 123,
+                "userId": 234,
+                "totalPrice": 199.99,
+                "shipStatus": false,
+                "products": [
+                    {"productId": 1, "productName": "Item One", "quantity": 4}, 
+                    {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+                    {"productId": 3, "productName": "Item Three", "quantity": 6},
+                    ...
+                ]
+            }, 
+            {
+                "orderId": 456,
+                "userId": 234,
+                "totalPrice": 199.99,
+                "shipStatus": false,
+                "products": [
+                    {"productId": 1, "productName": "Item One", "quantity": 4}, 
+                    {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+                    {"productId": 3, "productName": "Item Three", "quantity": 6},
+                    ...
+                ]
+            }, 
+            {
+                "orderId": 789,
+                "userId": 234,
+                "totalPrice": 199.99,
+                "shipStatus": false,
+                "products": [
+                    {"productId": 1, "productName": "Item One", "quantity": 4}, 
+                    {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+                    {"productId": 3, "productName": "Item Three", "quantity": 6},
+                    ...
+                ]
+            },
+            ...
+        ]
+    }; 
+
+2) Create Order*** (POST: localhost:4001/orders/)
+Ex- Request Body
+    {
+        "totalPrice": 314.99, 
+        "products": [
+            {"productId": 1, "productName": "Item One", "quantity": 4}, 
+            {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+            {"productId": 3, "productName": "Item Three", "quantity": 6},
+            ...
+        ]
+    };
+
+3) Get Order By Order Id (Admin Only Route) (GET: localhost:4001/orders/:orderId)
+Ex- Response
+    {
+        "orderId": 123,
+        "userId": 234,
+        "totalPrice": 199.99,
+        "shipStatus": false,
+        "products": [
+            {"productId": 1, "productName": "Item One", "quantity": 4}, 
+            {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+            {"productId": 3, "productName": "Item Three", "quantity": 6},
+            ...
+        ]
+    };
+
+4) Update Order By Order Id (Admin Only Route) (PUT: localhost:4001/orders/:orderId)
+Ex- Request Body
+    {
+        "shipStatus": true
+    };
+
+5) Delete Order (Admin Only Route) (DELETE: localhost:4001/orders/:orderId)

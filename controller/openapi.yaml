@@ -1,0 +1,741 @@
+openapi: 3.0.1
+info:
+  title: E-Commerce API
+  version: 1.0.0
+  description: API for use with e-commerce site.
+paths:
+  /users/login:
+    summary: Log a user in or get the login page
+    get:
+      summary: 'Retrieve the Login Page'
+      description: ''
+      operationId: 'get_login_page'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+    post:
+      summary: 'Login a User'
+      description: ''
+      operationId: 'get_user'
+      requestBody:
+        description: Object with username and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+  /users/logout:
+    summary: Log out a user
+    get:
+      summary: 'Logout a User'
+      description: 'logout_user'
+      operationId: ''
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+  /users/register:
+    summary: Register a user
+    post:
+      summary: 'Register a User'
+      description: ''
+      operationId: 'register_user'
+      requestBody:
+        description: Object with new username and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+  /users/username:
+    summary: Change a user's username
+    put:
+      summary: 'Update a Username'
+      description: ''
+      operationId: 'update_username'
+      requestBody:
+        description: Object with new username
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Username'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+  /users/password:
+    summary: Change a user's password
+    put:
+      summary: 'Update a password'
+      description: ''
+      operationId: 'update_password'
+      requestBody:
+        description: Object with new password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Password'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+  /users/delete:
+    summary: Delete a user
+    delete:
+      summary: 'Delete a User'
+      description: ''
+      operationId: 'delete_user'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Users
+  /products/:
+    summary: Get all products or create a new product
+    get:
+      summary: 'Get All Products'
+      description: ''
+      operationId: 'get_all_products'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                allProducts:
+                  value: >-
+                    {
+                      "products": [
+                        {
+                          "id": 1, 
+                          "name": "Item One", 
+                          "price": 3.99, 
+                          "stock": 4
+                        }, 
+                        {
+                          "id": 2, 
+                          "name": "Item Two", 
+                          "price": 4.99, 
+                          "stock": 5
+                        }, 
+                        {
+                          "id": 3, 
+                          "name": "Item Three", 
+                          "price": 5.99, 
+                          "stock": 6
+                        }
+                      ]
+                    };
+          description: Success
+      tags:
+        - Products
+    post:
+      summary: 'Create a New Product'
+      description: ''
+      operationId: 'post_product'
+      requestBody:
+        description: Object with productName, price, and stock
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Products
+  /products/name/{productName}:
+    summary: Get products by name
+    get:
+      summary: 'Get Product By Name'
+      description: ''
+      operationId: 'get_product_by_name'
+      parameters:
+      - name: productName
+        in: path
+        description: 'The name of a product.'
+        required: true
+        schema:
+          type: string
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                products:
+                  value: >-
+                    {
+                      "products": [
+                        {
+                          "id": 1, 
+                          "name": "Item One", 
+                          "price": 3.99, 
+                          "stock": 4
+                        }, 
+                        {
+                          "id": 2, 
+                          "name": "Item Two", 
+                          "price": 4.99, 
+                          "stock": 5
+                        }, 
+                        {
+                          "id": 3, 
+                          "name": "Item Three", 
+                          "price": 5.99, 
+                          "stock": 6
+                        }
+                      ]
+                    };
+          description: Success          
+      tags:
+        - Products
+  /products/id/{productId}:
+    summary: Get, alter, or delete products by id
+    get:
+      summary: 'Get Product By Id'
+      description: ''
+      operationId: 'get_product_by_id'
+      parameters:
+      - name: productId
+        in: path
+        description: 'The id of a product'
+        required: true
+        schema:
+          type: string
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                product:
+                  value: >-
+                     {
+                      "product": {
+                        "id": 1, 
+                        "name": "Item One", 
+                        "price": 3.99, 
+                        "stock": 4
+                      }
+                     };
+          description: Success 
+      tags:
+        - Products
+    put:
+      summary: 'Update a Product'
+      description: ''
+      operationId: 'put_product'
+      parameters:
+      - name: productId
+        in: path
+        description: 'The id of a product'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Object with productName, price, and stock
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Products
+    delete:
+      summary: 'Delete a Product'
+      description: ''
+      operationId: 'delete_product'
+      parameters:
+      - name: productId
+        in: path
+        description: 'The id of a product'
+        required: true
+        schema:
+          type: string
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Products
+  /carts/:
+    summary: Get, create, or delete the cart of a signed-in user
+    get:
+      summary: 'Get a User Cart'
+      description: ''
+      operationId: 'get_cart'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                cart:
+                  value: >-
+                    {
+                      "cartId": 123,
+                      "userId": 234,
+                      "totalPrice": 199.99,
+                      "products": [
+                        {
+                          "productId": 1, 
+                          "productName": "Item One", 
+                          "quantity": 4
+                        },
+                        {
+                          "productId": 2, 
+                          "productName": "Item Two", 
+                          "quantity": 5
+                        }, 
+                        {
+                          "productId": 3, 
+                          "productName": "Item Three", 
+                          "quantity": 6
+                        }
+                      ]
+                    };
+          description: Success 
+      tags:
+        - Carts
+    post:
+      summary: 'Create a Cart'
+      description: ''
+      operationId: 'post_cart'
+      requestBody:
+        description: Object with totalPrice and a products array (contains objects with productId, productName, quantity)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCart'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Carts
+    delete:
+      summary: 'Delete a Cart'
+      description: ''
+      operationId: 'delete_cart'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Carts
+  /carts/addItem:
+    summary: Add an item to a cart
+    post:
+      summary: 'Add an Item to a Cart'
+      description: ''
+      operationId: 'add_cart_item'
+      requestBody:
+        description: Object with productId, productName, and quantity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddItem'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Carts
+  /carts/deleteItem:
+    summary: Removes an item from a cart
+    put:
+      summary: 'Delete an Item From a Cart'
+      description: ''
+      operationId: 'delete_cart_item'
+      requestBody:
+        description: Object with productId
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteItem'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Carts
+  /carts/updateQuantity:
+    summary: Change the quantity of an item in a cart
+    post:
+      summary: 'Update the Quantity of an Item in a Cart'
+      description: ''
+      operationId: 'update_item_quantity'
+      requestBody:
+        description: Object with productId and quantity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuantity'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Carts
+  /carts/checkout:
+    summary: Create a new order from the items in a users cart
+    post:
+      summary: 'Checkout a User Cart'
+      description: ''
+      operationId: 'checkout_cart'
+      requestBody:
+        description: Object with checkout information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Checkout'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Checkout
+        - Carts
+  /orders/:
+    summary: Get all orders or create a new order using a user's id
+    get:
+      summary: 'Get All Orders for a User'
+      description: ''
+      operationId: 'get_user_orders'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                userOrders:
+                  value: >-
+                    {
+                      "userOrders": [
+                        {
+                          "orderId": 123,
+                          "userId": 234,
+                          "totalPrice": 199.99,
+                          "shipStatus": false,
+                          "products": [
+                              {"productId": 1, "productName": "Item One", "quantity": 4}, 
+                              {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+                              {"productId": 3, "productName": "Item Three", "quantity": 6}
+                          ]
+                        }, 
+                        {
+                          "orderId": 456,
+                          "userId": 234,
+                          "totalPrice": 199.99,
+                          "shipStatus": false,
+                          "products": [
+                              {"productId": 1, "productName": "Item One", "quantity": 4}, 
+                              {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+                              {"productId": 3, "productName": "Item Three", "quantity": 6}
+                          ]
+                        }, 
+                        {
+                          "orderId": 789,
+                          "userId": 234,
+                          "totalPrice": 199.99,
+                          "shipStatus": false,
+                          "products": [
+                              {"productId": 1, "productName": "Item One", "quantity": 4}, 
+                              {"productId": 2, "productName": "Item Two", "quantity": 5}, 
+                              {"productId": 3, "productName": "Item Three", "quantity": 6}
+                          ]
+                        }
+                      ]
+                    };
+          description: Success 
+      tags:
+        - Orders
+    post:
+      summary: 'Create an Order'
+      description: ''
+      operationId: 'post_order'
+      requestBody:
+        description: Object with totalPrice and a products array (contains objects with productId and quantity)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrder'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Orders
+  /orders/{orderId}:
+    summary: Get, update, or delete an order by order id
+    get:
+      summary: 'Get an Order by Id'
+      description: ''
+      operationId: 'get_order_by_id'
+      parameters:
+      - name: orderId
+        in: path
+        description: 'The id of an order'
+        required: true
+        schema:
+          type: string
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                order:
+                  value: >-
+                    {
+                      "orderId": 123,
+                      "userId": 234,
+                      "totalPrice": 199.99,
+                      "shipStatus": false,
+                      "products": [
+                        {
+                          "productId": 1,
+                          "productName": "Item One",
+                          "quantity": 4
+                        }, 
+                        {
+                          "productId": 2,
+                          "productName": "Item Two",
+                          "quantity": 5
+                        }, 
+                        {
+                          "productId": 3,
+                          "productName": "Item Three",
+                          "quantity": 6
+                        }
+                      ]
+                    };
+          description: Success 
+      tags:
+        - Orders
+    put:
+      summary: 'Update an Order'
+      description: ''
+      operationId: 'put_order'
+      parameters:
+      - name: orderId
+        in: path
+        description: 'The id of an order'
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Object with shipStatus (true or false)
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrder'
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Orders
+    delete:
+      summary: 'Delete an Order'
+      description: ''
+      operationId: 'delete_order'
+      parameters:
+      - name: orderId
+        in: path
+        description: 'The id of an order'
+        required: true
+        schema:
+          type: string
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          description: Success
+      tags:
+        - Orders
+
+components:
+  schemas:
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      xml:
+        name: Login
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      xml:
+        name: Register
+    Username:
+      type: object
+      properties:
+        username:
+          type: string
+      xml:
+        name: Username
+    Password:
+      type: object
+      properties:
+        password:
+          type: string
+      xml:
+        name: Password
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+      xml:
+        name: Product
+    CreateCart:
+      type: object
+      properties:
+        totalPrice:
+          type: number
+        products:
+          type: array
+          items: 
+            type: object
+            properties:
+              productId: 
+                type: integer
+              productName:
+                type: string
+              quantity: 
+                type: integer
+      xml:
+        name: CreateCart
+    AddItem:
+      type: object
+      properties:
+        productId:
+          type: integer
+        productName:
+          type: string
+        quantity:
+          type: integer
+      xml:
+        name: AddItem
+    DeleteItem:
+      type: object
+      properties:
+        productId:
+          type: integer
+      xml:
+        name: DeleteItem
+    UpdateQuantity:
+      type: object
+      properties:
+        productId:
+          type: integer
+        quantity:
+          type: integer
+      xml:
+        name: UpdateQuantity
+    Checkout:
+      type: object
+      properties:
+        paymentInfo:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            cardNumber:
+              type: integer
+            expirationDate:
+              type: integer
+            securityCode:
+              type: integer
+      xml:
+        name: Checkout
+    CreateOrder:
+      type: object
+      properties:
+        totalPrice:
+          type: number
+        products:
+          type: array
+          items: 
+            type: object
+            properties:
+              productId: 
+                type: integer
+              productName:
+                type: string
+              quantity: 
+                type: integer
+      xml:
+        name: CreateOrder
+    UpdateOrder:
+      type: object
+      properties:
+        shipStatus:
+          type: boolean
+      xml:
+        name: UpdateOrder

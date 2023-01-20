@@ -14,9 +14,10 @@ during development, NOT during production due to security risks. */
 const passport = require("passport");
 const localStrat = require('./passportStrats/localStrat');
 
-const db = require('./db/db');
+require('dotenv').config();
+const PORT = process.env.SERVER_PORT || 4001;
 
-const PORT = process.env.port || 4001;
+const db = require('./db/db');
 
 const usersRouter = require('./routers/usersRouter.js');
 const productsRouter = require('./routers/productsRouter.js');

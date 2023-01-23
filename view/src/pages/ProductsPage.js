@@ -7,11 +7,11 @@ export const ProductsPage = () => {
     return (
         <div className='row'>
 
-            <div className='col-10 border'> 
+            <div className='col-10'> 
                 <Products />
             </div>
 
-            <div className='col-2 border'> 
+            <div className='col-2'> 
                 <Cart />
             </div>
 

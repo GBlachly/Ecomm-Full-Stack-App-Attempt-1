@@ -8,16 +8,23 @@ export const AccountPage = () => {
     
     return (
         <div className='row'>
-            
-            <div className='col-5 border'>
-                <User />
-            </div>
+            <div className='col-10'>
+                
+                <div className='row'>
+                    <div className='col-12'>
+                        <User />
+                    </div>
+                </div>
+                
+                <div className='row'>
+                    <div className='col-12'>
+                        <Orders />
+                    </div>
+                </div>
 
-            <div className='col-5 border'>
-                <Orders />
             </div>
             
-            <div className='col-2 border'>
+            <div className='col-2'>
                 <Cart />
             </div> 
         

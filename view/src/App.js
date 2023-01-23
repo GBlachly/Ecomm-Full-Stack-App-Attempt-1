@@ -9,6 +9,7 @@ import { AccountPage } from './pages/AccountPage';
 
 function App() {
   return (
+    <div className='app'>
     <Router>
       <Routes>
         <Route path='/' element={<LayoutPage />}>
@@ -20,6 +21,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </div>
   );
 }
 

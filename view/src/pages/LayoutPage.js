@@ -4,10 +4,10 @@ import { Link, Outlet } from 'react-router-dom';
 export const LayoutPage = () => {
     
     return (
-        <div className='container'>
+        <div className='container-fluid mx-0 my-0 px-0 py-0'>
 
-            <div className='row'>
-                <nav className='col-12'>
+            <div className='row mx-0 my-0 px-0 py-0'>
+                <nav className='col-12 mx-0 my-0 px-0 py-0'>
                     <ul>
                         <li>
                             <Link to='/'>Home Page</Link>
@@ -25,8 +25,8 @@ export const LayoutPage = () => {
                 </nav>
             </div>
 
-            <div className='row'>
-                <div className='col-12'>
+            <div className='row mx-0 my-0 px-0 py-0'>
+                <div className='col-12 mx-0 my-0 px-0 py-0'>
                     <Outlet />
                 </div> 
             </div>

@@ -2,6 +2,19 @@ const db = require('../db/db');
 const bcrypt = require('bcrypt');
 
 
+const getUserInfo = async (req, res, next) => {
+    const { userId } = req.body;
+    //const userId = req.user.id;
+
+    db.query('SELECT * FROM users WHERE id = $1;', [userId], (err, result) => {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({userInfo: result.rows[0]});
+    });
+};
+
+
 const registerUser = async (req, res, next) => {
     const {username, password, email } = req.body;
     const admin = req.body.admin || false;
@@ -77,6 +90,7 @@ const deleteUser = (req, res, next) => {
 
 
 module.exports = {
+    getUserInfo,
     registerUser,
     updateUsername,
     updatePassword,

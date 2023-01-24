@@ -17,7 +17,19 @@ Ex- Request Body
         "password": "testPassword"
     };
 
-4) Register user (POST: localhost:4001/users/register)
+4) Get User Info (GET: localhost:4001/users/)
+Ex- Response Body
+    {
+        "userInfo": {
+            "id": 123, 
+            "username": "Username",
+            "password": "Password123",
+            "email": "useremail@gmail.com",
+            "admin", false
+        }
+    };
+
+5) Register user (POST: localhost:4001/users/register)
 Ex- Request Body
     {
         "username": "testUsername",
@@ -26,19 +38,19 @@ Ex- Request Body
         /* , "admin": true */
     };
 
-5) Update Username*** (PUT: localhost:4001/users/username)
+6) Update Username*** (PUT: localhost:4001/users/username)
 Ex- Request Body
     {
         "username": "newUsername"
     };
 
-6) Update Password*** (PUT: localhost:4001/users/password)
+7) Update Password*** (PUT: localhost:4001/users/password)
 Ex- Request Body
     {
         "password": "newPassword",
     };
 
-7) Delete User*** (DELETE: localhost:4001/users/delete)
+8) Delete User*** (DELETE: localhost:4001/users/delete)
 
 
 

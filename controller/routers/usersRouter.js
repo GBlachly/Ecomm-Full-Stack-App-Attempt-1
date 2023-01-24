@@ -3,6 +3,7 @@ const passport = require('passport');
 const usersRouter = express.Router();
 
 const { 
+    getUserInfo,
     registerUser, 
     updateUsername, 
     updatePassword,
@@ -38,6 +39,8 @@ usersRouter.post(
     }
 );
 
+/* get user info (once logged in) */
+usersRouter.get('/', getUserInfo);
 
 /* create new user (authentication of user not needed) */
 usersRouter.post('/register', registerUser);

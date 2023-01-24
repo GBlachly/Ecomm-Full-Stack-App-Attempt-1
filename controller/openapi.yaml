@@ -47,6 +47,33 @@ paths:
           description: Success
       tags:
         - Users
+  /users/:
+    summary: Get a user's information
+    get:
+      summary: 'Get a User'
+      description: 'get_user'
+      operationId: ''
+      responses:
+        '500':
+          description: Default error response
+        '200':
+          content:
+            application/json:
+              examples:
+                allProducts:
+                  value: >-
+                    {
+                      "userInfo": {
+                        "id": 123, 
+                        "username": "Username",
+                        "password": "Password123",
+                        "email": "useremail@gmail.com",
+                        "admin", false
+                      }
+                    };
+          description: Success
+      tags:
+        - Users
   /users/register:
     summary: Register a user
     post:

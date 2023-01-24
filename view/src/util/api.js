@@ -54,19 +54,32 @@ const fetchProductById = async (id) => {
 const fetchLoginUser = async (username, password) => {
     try {
         const response = await fetch(`${userRoot}login`, {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify({
                 username,
                 password,
             }),
             headers: {
-                "Content-Type": 'application/json',
+                "Content-Type": "application/json",
             },
         });
         const json = await response.json();
         console.log(json);
 
         return json;
+
+    } catch(err) {
+        console.log(err);
+    };
+};
+
+const fetchUserInfo = async () => {
+    try {
+        const response = await fetch(`${userRoot}`) ;
+        const json = response.json();
+        console.log(json);
+
+        return json.userInfo;
 
     } catch(err) {
         console.log(err);
@@ -89,7 +102,7 @@ const fetchLogoutUser = async () => {
 const fetchRegisterUser = async (username, password, email, admin=false) => {
     try {
         const response = await fetch(`${userRoot}register`, {
-            method: 'POST',
+            method: "POST",
             body: JSON.stringify({
                 username,
                 password,
@@ -97,7 +110,7 @@ const fetchRegisterUser = async (username, password, email, admin=false) => {
                 admin
             }),
             headers: {
-                "Content-Type": 'application/json',
+                "Content-Type": "application/json",
             },
         });
         const json = await response.json();
@@ -112,7 +125,7 @@ const fetchRegisterUser = async (username, password, email, admin=false) => {
 
 const fetchUserOrders = async () => {
     try {
-        const response = await fetch(`${userRoot}`);
+        const response = await fetch(`${orderRoot}`);
         const json = await response.json();
         console.log(json);
 

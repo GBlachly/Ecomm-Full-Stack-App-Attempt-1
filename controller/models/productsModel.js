@@ -30,7 +30,7 @@ const getProductById = (req, res, next) => {
         if (err) {
             return next(err)
         }
-        res.status(200).json({ products: result.rows[0] });
+        res.status(200).json({ product: result.rows[0] });
     });
 };
 

@@ -50,7 +50,6 @@ const fetchProductById = async (id) => {
 
 
 //ACCOUNTS
-//logins and also fetches user information 
 const fetchLoginUser = async (username, password) => {
     try {
         const response = await fetch(`${userRoot}login`, {

@@ -146,7 +146,13 @@ Ex- Request Body
 CHECKOUT
 EDIT 1) Checkout*** (POST: localhost:4001/carts/checkout)
 Ex- Request Body
-    {};
+    {
+        "firstName": "John",
+        "lastName": "Smith",
+        "cardNumber": 5555111122223333,
+        "expirationDate": 0125,
+        "securityCode": 123
+    };
 
 
 

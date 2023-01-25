@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 const cors = require('cors');
+//const helmet = require('helmet') NOT YET INSTALLED
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); 
 
@@ -27,6 +28,7 @@ const cartsRouter = require('./routers/cartsRouter.js');
 
 // USES/SESSION
 app.use(cors()); //Not sure where this goes exactly or if i actually need it 
+//app.use(helmet());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 

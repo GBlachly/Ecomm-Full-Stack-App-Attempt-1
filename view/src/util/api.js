@@ -53,7 +53,7 @@ export const fetchLoginUser = async (username, password) => {
 };
 
 export const fetchUserInfo = async () => {
-    const response = await fetch(`${userRoot}`) ;
+    const response = await fetch(`${userRoot}`/*, {credentials: 'include'}*/) ;
     const json = response.json();
     console.log(json);
 

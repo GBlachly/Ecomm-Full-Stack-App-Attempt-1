@@ -5,7 +5,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); 
-//const helmet = require('helmet') NOT YET INSTALLED
+//const cookieParser = require('cookie-parser');
 
 const session = require('express-session');
 const store = new session.MemoryStore();
@@ -30,12 +30,13 @@ const cartsRouter = require('./routers/cartsRouter.js');
 app.use(cors()); //Not sure where this goes exactly or if i actually need it 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-//app.use(helmet());
+app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(cookieParser());
 
 app.use(
   session({
     secret: "RandomString1234", //this random string should be stored securely in an environment variable
-    cookie: { maxAge: 1000 * 60 *60 * 24, secure: true, sameSite: "none" },
+    cookie: { maxAge: 1000 * 60 *60 * 24, secure: false, sameSite: "none" },
     resave: false,
     saveUninitialized: false,
     store
@@ -48,6 +49,7 @@ app.use(passport.initialize()); // notes 4.7 pg. 78
 app.use(passport.session());
 
 passport.serializeUser((user, done) => {
+  console.log(`serialize: user:${user.id}`);
   done(null, user.id);
 });
 
@@ -57,9 +59,14 @@ passport.deserializeUser((id, done) => {
       return next(err);
     }
     const user = result.rows[0];
+    console.log(`deserialize: user:${user}`);
     done(null, user);
   })
-});
+}); 
+
+/* passport.deserializeUser((id, done) => {
+  done(null, { id });
+}); */
 
 passport.use("local", localStrat);
 

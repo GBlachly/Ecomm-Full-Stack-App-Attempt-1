@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 
 const getUserInfo = async (req, res, next) => {
     //const { userId } = req.body;
+    console.log(req.user);
     const userId = req.user.id;
 
     db.query('SELECT * FROM users WHERE id = $1;', [userId], (err, result) => {

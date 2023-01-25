@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { fetchLoginUser, fetchUserInfo } from '../../util/api';
 
 //ASYNC ACTION CREATORS
-export const loginUser = (username, password) => async (dispatch) => {
+/* export const loginUser = (username, password) => async (dispatch) => {
     try{
         
         dispatch(startLoginUser());
@@ -16,7 +16,15 @@ export const loginUser = (username, password) => async (dispatch) => {
     } catch(error) {
         dispatch(loginUserFailed())
     };
-};
+}; */
+
+export const getUserInfo = createAsyncThunk(
+    'user/getUserInfo',
+    async () => {
+        const response = await fetchUserInfo();
+        return response;
+    }
+);
 
 
 //SLICE CREATOR
@@ -28,7 +36,7 @@ const options = {
         hasError: false
     },
     reducers: {
-        startLoginUser(state, action) {
+        /*startLoginUser(state, action) {
             state.isLoading  = true;
             state.hasError = false;
         },
@@ -40,9 +48,23 @@ const options = {
         loginUserFailed(state, action) {
             state.isLoading  = false;
             state.hasError = true;
-        },
+        }, */
     },
-    extraReducers: {}
+    extraReducers: {
+        [getUserInfo.pending]: (state, action) => {
+            state.isLoading = true;
+            state.hasError = false;
+        },
+        [getUserInfo.fulfilled]: (state, action) => {
+            state.user = action.payload;
+            state.isLoading = false;
+            state.hasError = false;
+        },
+        [getUserInfo.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.hasError = true;
+        },
+    }
 };
 
 const userSlice = createSlice(options);
@@ -53,4 +75,4 @@ export const selectUser = (state) => state.user.user;
 
 export default userSlice.reducer;
 
-export const { startLoginUser, loginUserSuccess, loginUserFailed} = userSlice.actions;
+//export const { startLoginUser, loginUserSuccess, loginUserFailed} = userSlice.actions;

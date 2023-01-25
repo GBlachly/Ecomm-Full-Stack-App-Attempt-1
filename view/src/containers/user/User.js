@@ -1,9 +1,14 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from './userSlice';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUser, getUserInfo } from './userSlice';
 
 export const User = () => {
     const user = useSelector(selectUser); 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUserInfo());
+    }, [dispatch]);
 
     return (
         <div className=''>

@@ -2,8 +2,8 @@ const db = require('../db/db');
 
 
 const getOrdersByUserId = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     try {
         const ordersResult = await db.queryNoCB(`SELECT * FROM orders WHERE user_id = $1;`, [userId]);
@@ -47,8 +47,8 @@ const getOrdersByUserId = async (req, res, next) => {
 
 
 const createOrder = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     const { totalPrice, products /*, paymentInfo*/ } = req.body;
     

@@ -35,7 +35,7 @@ usersRouter.post(
     '/login', 
     passport.authenticate("local"/*, { failureRedirect: '/login', failureMessage: true} */), 
     (req, res, next) => {
-        res.status(200).send(`User: ${req.user.username} w/ email ${req.user.email} logged in`)
+        res.status(200).json({message: `User: ${req.user.username} w/ email ${req.user.email} logged in`})
     }
 );
 

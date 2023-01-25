@@ -2,8 +2,8 @@ const db = require('../db/db');
 
 
 const getCartByUserId = (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     const statement = `SELECT * 
                         FROM carts 
@@ -39,8 +39,8 @@ const getCartByUserId = (req, res, next) => {
 
 
 const createCart= async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
     
     const {totalPrice, products} = req.body;
     //products = array of product objects with { productId, productName, quantity }
@@ -67,8 +67,8 @@ const createCart= async (req, res, next) => {
 
 
 const addItemToCart = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     const { productId, productName, quantity } = req.body;
 
@@ -89,8 +89,8 @@ const addItemToCart = async (req, res, next) => {
 
 
 const deleteItemFromCart = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     const { productId } = req.body;
 
@@ -110,8 +110,8 @@ const deleteItemFromCart = async (req, res, next) => {
 
 
 const updateCartItemQuantity = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     const { productId, quantity } = req.body;
 
@@ -133,8 +133,8 @@ const updateCartItemQuantity = async (req, res, next) => {
 
 
 const deleteCart = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     try {
         //PostgreSQL allows you to return deleted information from a delete statement (other sql may not)
@@ -156,9 +156,10 @@ const deleteCart = async (req, res, next) => {
 };
 
 
+/* this route may need to also alter stock of products eventually */
 const checkout = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
     
     /*const {
         firstName,

@@ -39,8 +39,8 @@ export const fetchLoginUser = async (username, password) => {
     const response = await fetch(`${userRoot}login`, {
         method: "POST",
         body: JSON.stringify({
-            username,
-            password,
+            username: username,
+            password: password
         }),
         headers: {
             "Content-Type": "application/json",

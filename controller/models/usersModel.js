@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt');
 
 
 const getUserInfo = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     db.query('SELECT * FROM users WHERE id = $1;', [userId], (err, result) => {
         if (err) {
@@ -36,8 +36,8 @@ const registerUser = async (req, res, next) => {
 
 
 const updateUsername = (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
     
     const { username } = req.body;
 
@@ -54,8 +54,8 @@ const updateUsername = (req, res, next) => {
 
 
 const updatePassword = async (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
     
     const { password } = req.body;
     const salt = await bcrypt.genSalt(10);
@@ -74,8 +74,8 @@ const updatePassword = async (req, res, next) => {
 
 
 const deleteUser = (req, res, next) => {
-    const { userId } = req.body;
-    //const userId = req.user.id;
+    //const { userId } = req.body;
+    const userId = req.user.id;
 
     db.query(`DELETE FROM users WHERE id = $1;`,
             [userId],

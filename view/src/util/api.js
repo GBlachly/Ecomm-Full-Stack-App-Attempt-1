@@ -4,7 +4,7 @@ const orderRoot = 'http://localhost:4001/orders/';
 const cartRoot = 'http://localhost:4001/carts/';
 
 //PRODUCTS
-const fetchAllProducts = async () => {
+export const fetchAllProducts = async () => {
     const response = await fetch(`${prodRoot}`);
     const json = await response.json();
     console.log(json);
@@ -12,7 +12,7 @@ const fetchAllProducts = async () => {
     return json.products;
 };
 
-const fetchProductsByName = async (name) => {
+export const fetchProductsByName = async (name) => {
     const response = await fetch(`${prodRoot}name/${name}`);
     const json = await response.json();
     console.log(json);
@@ -20,7 +20,7 @@ const fetchProductsByName = async (name) => {
     return json.products;
 };
 
-const fetchProductById = async (id) => {
+export const fetchProductById = async (id) => {
     const response = await fetch(`${prodRoot}id/${id}`);
     const json = await response.json();
     console.log(json);
@@ -35,7 +35,7 @@ const fetchProductById = async (id) => {
 
 
 //ACCOUNTS
-const fetchLoginUser = async (username, password) => {
+export const fetchLoginUser = async (username, password) => {
     const response = await fetch(`${userRoot}login`, {
         method: "POST",
         body: JSON.stringify({
@@ -52,7 +52,7 @@ const fetchLoginUser = async (username, password) => {
     return json;
 };
 
-const fetchUserInfo = async () => {
+export const fetchUserInfo = async () => {
     const response = await fetch(`${userRoot}`) ;
     const json = response.json();
     console.log(json);
@@ -60,7 +60,7 @@ const fetchUserInfo = async () => {
     return json.userInfo;
 };
 
-const fetchLogoutUser = async () => {
+export const fetchLogoutUser = async () => {
     const response = await fetch(`${userRoot}logout`);
     const json = await response.json();
     console.log(json);
@@ -68,7 +68,7 @@ const fetchLogoutUser = async () => {
     return json;
 };
 
-const fetchRegisterUser = async (username, password, email, admin=false) => {
+export const fetchRegisterUser = async (username, password, email, admin=false) => {
     const response = await fetch(`${userRoot}register`, {
         method: "POST",
         body: JSON.stringify({
@@ -87,7 +87,7 @@ const fetchRegisterUser = async (username, password, email, admin=false) => {
     return json;
 };
 
-const fetchUserOrders = async () => {
+export const fetchUserOrders = async () => {
     const response = await fetch(`${orderRoot}`);
     const json = await response.json();
     console.log(json);

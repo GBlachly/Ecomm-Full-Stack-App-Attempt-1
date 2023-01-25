@@ -30,19 +30,20 @@ const cartsRouter = require('./routers/cartsRouter.js');
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(cors()); //Not sure where this goes exactly or if i actually need it 
 
 app.use(
   session({
     secret: "RandomString1234", //this random string should be stored securely in an environment variable
-    cookie: { maxAge: 1000 * 60 *60 * 24, secure: false, sameSite: "none" },
+    name: "cookie/session name",
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 *60 * 24, secure: false, sameSite: "none" },
     store
   })
 );
 
-app.use(cors()); //Not sure where this goes exactly or if i actually need it 
+
 
 // PASSPORT
 app.use(passport.initialize()); // notes 4.7 pg. 78

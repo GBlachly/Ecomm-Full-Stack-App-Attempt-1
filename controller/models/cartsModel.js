@@ -3,7 +3,7 @@ const db = require('../db/db');
 
 const getCartByUserId = (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     const statement = `SELECT * 
                         FROM carts 
@@ -12,7 +12,7 @@ const getCartByUserId = (req, res, next) => {
                         WHERE carts.user_id = $1;`;
 
     db.query(statement,
-            [userId],
+            [id],
             (err, result) => {
                 if (err) {
                     return next(err);
@@ -40,7 +40,7 @@ const getCartByUserId = (req, res, next) => {
 
 const createCart= async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
     
     const {totalPrice, products} = req.body;
     //products = array of product objects with { productId, productName, quantity }
@@ -49,7 +49,7 @@ const createCart= async (req, res, next) => {
         const statement1 = `INSERT INTO carts (user_id, total_price)
                             VALUES ($1, $2)
                             RETURNING *;`;
-        const result = await db.queryNoCB(statement1, [userId, totalPrice]);
+        const result = await db.queryNoCB(statement1, [id, totalPrice]);
         const cartId = result.rows[0].id;
 
         const statement2 = `INSERT INTO carts_products (cart_id, product_id, product_name, quantity)
@@ -68,12 +68,12 @@ const createCart= async (req, res, next) => {
 
 const addItemToCart = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     const { productId, productName, quantity } = req.body;
 
     try {
-        const result = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [userId]);
+        const result = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [id]);
         const cartId = result.rows[0].id;
 
         const statement = `INSERT INTO carts_products (cart_id, product_id, product_name, quantity)
@@ -90,12 +90,12 @@ const addItemToCart = async (req, res, next) => {
 
 const deleteItemFromCart = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     const { productId } = req.body;
 
     try {
-        const result = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [userId]);
+        const result = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [id]);
         const cartId = result.rows[0].id;
 
         const statement = 'DELETE FROM carts_products WHERE cart_id = $1 AND product_id = $2;';
@@ -111,12 +111,12 @@ const deleteItemFromCart = async (req, res, next) => {
 
 const updateCartItemQuantity = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     const { productId, quantity } = req.body;
 
     try {
-        const result = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [userId]);
+        const result = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [id]);
         const cartId = result.rows[0].id;
 
         const statement = `ALTER TABLE carts_products 
@@ -134,14 +134,14 @@ const updateCartItemQuantity = async (req, res, next) => {
 
 const deleteCart = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     try {
         //PostgreSQL allows you to return deleted information from a delete statement (other sql may not)
         const statement1 = `DELETE FROM carts
                             WHERE user_id = $1
                             RETURNING *;`;
-        const result = await db.queryNoCB(statement1, [userId]);
+        const result = await db.queryNoCB(statement1, [id]);
         const deletedCartId = result.rows[0].id;
 
         const statement2 = `DELETE FROM carts_products
@@ -159,7 +159,7 @@ const deleteCart = async (req, res, next) => {
 /* this route may need to also alter stock of products eventually */
 const checkout = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
     
     /*const {
         firstName,
@@ -171,7 +171,7 @@ const checkout = async (req, res, next) => {
 
     try {
 
-        const result1 = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [userId]);
+        const result1 = await db.queryNoCB('SELECT * FROM carts WHERE user_id = $1;', [id]);
         const cartId = result1.rows[0].id;
         const totalPrice = result1.rows[0].total_price;
 
@@ -194,7 +194,7 @@ const checkout = async (req, res, next) => {
         const statement3 = `INSERT INTO orders (user_id, total_price)
                             VALUES ($1, $2)
                             RETURNING *;`;
-        const result3 = await db.queryNoCB(statement3, [userId, totalPrice/*, paymentInfo */]);
+        const result3 = await db.queryNoCB(statement3, [id, totalPrice/*, paymentInfo */]);
         const orderId = result3.rows[0].id;
 
 

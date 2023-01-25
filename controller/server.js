@@ -27,7 +27,6 @@ const cartsRouter = require('./routers/cartsRouter.js');
 
 
 // USES/SESSION
-app.use(cors()); //Not sure where this goes exactly or if i actually need it 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,6 +42,7 @@ app.use(
   })
 );
 
+app.use(cors()); //Not sure where this goes exactly or if i actually need it 
 
 // PASSPORT
 app.use(passport.initialize()); // notes 4.7 pg. 78
@@ -54,6 +54,8 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
+  console.log(`deserializing:...`);
+
   db.query('SELECT * FROM users WHERE id = $1;', [id], (err, result) => {
     if (err) {
       return next(err);

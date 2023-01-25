@@ -3,10 +3,10 @@ const db = require('../db/db');
 
 const getOrdersByUserId = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     try {
-        const ordersResult = await db.queryNoCB(`SELECT * FROM orders WHERE user_id = $1;`, [userId]);
+        const ordersResult = await db.queryNoCB(`SELECT * FROM orders WHERE user_id = $1;`, [id]);
         
         const userOrders = [];
         
@@ -48,7 +48,7 @@ const getOrdersByUserId = async (req, res, next) => {
 
 const createOrder = async (req, res, next) => {
     //const { userId } = req.body;
-    const userId = req.user.id;
+    const { id } = req.user;
 
     const { totalPrice, products /*, paymentInfo*/ } = req.body;
     
@@ -56,7 +56,7 @@ const createOrder = async (req, res, next) => {
         const statement1 = `INSERT INTO orders (user_id, total_price) 
                             VALUES ($1, $2) 
                             RETURNING *`;
-        const result = await db.queryNoCB(statement1, [userId, totalPrice/*, paymentInfo*/]);
+        const result = await db.queryNoCB(statement1, [id, totalPrice/*, paymentInfo*/]);
         const orderId = result.rows[0].id;
         
         /* HERE WE WANT TO ADD THE PRODUCTS AND THEIR QUANTITIES TO THE orders_products/ordered_items TABLE USING THE RETURNED orderID */

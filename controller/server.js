@@ -5,7 +5,7 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const morgan = require('morgan'); 
-//const cookieParser = require('cookie-parser');
+
 
 const session = require('express-session');
 const store = new session.MemoryStore();
@@ -31,7 +31,7 @@ app.use(cors()); //Not sure where this goes exactly or if i actually need it
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cookieParser());
+
 
 app.use(
   session({

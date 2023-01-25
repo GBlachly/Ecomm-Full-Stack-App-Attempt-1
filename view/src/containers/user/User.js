@@ -6,13 +6,14 @@ export const User = () => {
     const user = useSelector(selectUser); 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    const handleClick = () => {
         dispatch(getUserInfo());
-    }, [dispatch]);
+    };
 
     return (
         <div className=''>
             <h1>User Container</h1>
+            <button onClick={handleClick} >Get User Info</button>
             <h2>{user.username}</h2>
             <h2>{user.email}</h2>
         </div>

@@ -5,10 +5,14 @@ import { fetchLoginUser, fetchUserInfo } from '../../util/api';
 //ASYNC ACTION CREATORS
 export const loginUser = (username, password) => async (dispatch) => {
     try{
+        
         dispatch(startLoginUser());
         const response1 = await fetchLoginUser(username, password);
-        const response2 = await fetchUserInfo();
-        dispatch(loginUserSuccess(response2));
+        if (response1) {
+            const response2 = await fetchUserInfo();
+            dispatch(loginUserSuccess(response2));
+        };
+        
     } catch(error) {
         dispatch(loginUserFailed())
     };

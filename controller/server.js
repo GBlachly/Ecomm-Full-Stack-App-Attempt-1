@@ -27,10 +27,11 @@ const cartsRouter = require('./routers/cartsRouter.js');
 
 
 // USES/SESSION
+app.use(cors()); 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors()); //Not sure where this goes exactly or if i actually need it 
+
 
 app.use(
   session({

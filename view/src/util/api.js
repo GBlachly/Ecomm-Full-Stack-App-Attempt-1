@@ -42,6 +42,7 @@ export const fetchLoginUser = async (username, password) => {
             username: username,
             password: password
         }),
+        credentials: 'include',
         headers: {
             "Content-Type": "application/json",
         },
@@ -53,7 +54,7 @@ export const fetchLoginUser = async (username, password) => {
 };
 
 export const fetchUserInfo = async () => {
-    const response = await fetch(`${userRoot}`/*, {credentials: 'include'}*/) ;
+    const response = await fetch(`${userRoot}`, {credentials: 'include'}) ;
     const json = response.json();
     console.log(json);
 
@@ -88,7 +89,7 @@ export const fetchRegisterUser = async (username, password, email, admin=false) 
 };
 
 export const fetchUserOrders = async () => {
-    const response = await fetch(`${orderRoot}`);
+    const response = await fetch(`${orderRoot}`, {credentials: 'include',});
     const json = await response.json();
     console.log(json);
 

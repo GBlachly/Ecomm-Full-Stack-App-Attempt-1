@@ -8,7 +8,7 @@ const morgan = require('morgan');
 
 
 const session = require('express-session');
-const store = new session.MemoryStore();
+//const store = new session.MemoryStore();
 /* Note: Storing in-memory sessions is something that should be done only 
 during development, NOT during production due to security risks. */
 
@@ -27,7 +27,12 @@ const cartsRouter = require('./routers/cartsRouter.js');
 
 
 // USES/SESSION
-app.use(cors()); 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "OPTIONS"],
+  credentials: true
+};
+app.use(cors(corsOptions)); 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,8 +44,8 @@ app.use(
     name: "cookie/session name",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 *60 * 24, secure: false, sameSite: "none" },
-    store
+    cookie: { maxAge: 1000 * 60 *60 * 24, secure: false, sameSite: "none" }
+    //, store
   })
 );
 

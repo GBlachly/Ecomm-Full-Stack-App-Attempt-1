@@ -10,27 +10,27 @@ const getOrdersByUserId = async (req, res, next) => {
         
         const userOrders = [];
         
-        for (let i=0; i < orders.length; i++) {
+        for (let i=0; i < ordersResult.length; i++) {
             const statement = `SELECT * 
                         FROM orders 
                         JOIN orders_products
                         ON orders.id = orders_products.order_id
                         WHERE orders.id = $1;`;
 
-            const result = await db.queryNoCB(statement, [ordersResult.rows[i].id]);
+            const itemsResult = await db.queryNoCB(statement, [ordersResult.rows[i].id]);
                 
             let products = [];
-            result.rows.forEach(row => products.push({
+            itemsResult.rows.forEach(row => products.push({
                 productId: row.product_id, 
                 productName: row.product_name,
                 quantity: row.quantity})
             );
 
             let orderObject = {
-                orderId: result.rows[0].id,
-                userId: result.rows[0].user_id,
-                totalPrice: result.rows[0].totalPrice,
-                shipStatus: result.rows[0].ship_status,
+                orderId: ordersResult.rows[i].id,
+                userId: ordersResult.rows[i].user_id,
+                totalPrice: ordersResult.rows[i].total_price,
+                shipStatus: ordersResult.rows[i].ship_status,
                 products: products
             };
 
